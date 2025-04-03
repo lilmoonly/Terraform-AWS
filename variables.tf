@@ -9,3 +9,11 @@ variable "project_name" {
   description = "Project name prefix"
   default     = "forgejo"
 }
+
+variable "cluster_name" {
+  default = "forgejo-eks"
+}
+
+variable "cluster_version" {
+  default = "1.29"
+}
