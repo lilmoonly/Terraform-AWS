@@ -4,6 +4,10 @@ module "vpc" {
   region       = var.region
 }
 
+module "eks_admin" {
+  source = "./modules/iam"
+}
+
 module "eks" {
   source = "./modules/eks"
 
