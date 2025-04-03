@@ -1,6 +1,7 @@
 module "vpc" {
-  source = "./modules/vpc"
-
+  source       = "./modules/vpc"
+  project_name = var.project_name
+  region       = var.region
 }
 
 module "eks" {
