@@ -24,7 +24,13 @@ module "eks" {
       instance_types = ["t3.medium"]
     }
   }
-
+  map_roles = [
+    {
+      rolearn  = "arn:aws:iam::733573665725:role/eks-admin-role"
+      username = "eks-admin"
+      groups   = ["system:masters"]
+    }
+  ]
   tags = {
     Environment = "dev"
     Terraform   = "true"

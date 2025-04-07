@@ -23,3 +23,11 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+variable "map_roles" {
+  type = list(object({
+    rolearn  = string
+    username = string
+    groups   = list(string)
+  }))
+  default = []
+}

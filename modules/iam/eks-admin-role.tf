@@ -7,9 +7,14 @@ resource "aws_iam_role" "eks_admin" {
       {
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::733573665725:user/eks-admin"
+          AWS = "arn:aws:iam::733573665725:root"
         },
-        Action = "sts:AssumeRole"
+        Action = "sts:AssumeRole",
+        Condition = {
+          StringEquals = {
+            "aws:username" = "eks-admin"
+          }
+        }
       }
     ]
   })
@@ -37,7 +42,7 @@ resource "aws_iam_policy" "eks_admin_custom" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "eks_admin_policy" {
+resource "aws_iam_role_policy_attachment" "eks_admin_attach" {
   role       = aws_iam_role.eks_admin.name
   policy_arn = aws_iam_policy.eks_admin_custom.arn
 }
