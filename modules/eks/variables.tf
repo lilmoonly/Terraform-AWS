@@ -23,7 +23,8 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
-variable "map_roles" {
+variable "aws_auth_roles" {
+  description = "List of roles to add to aws-auth configmap"
   type = list(object({
     rolearn  = string
     username = string
@@ -31,3 +32,4 @@ variable "map_roles" {
   }))
   default = []
 }
+

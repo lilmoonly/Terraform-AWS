@@ -11,7 +11,8 @@ module "eks" {
 
   eks_managed_node_groups = var.eks_managed_node_groups
 
-  map_roles = var.map_roles
+  manage_aws_auth_configmap = true 
+  aws_auth_roles = var.aws_auth_roles  
+
   tags = var.tags
-  
 }
