@@ -26,12 +26,12 @@ module "eks" {
   }
   
   aws_auth_roles = [
-  {
-    rolearn  = "arn:aws:iam::733573665725:role/eks-admin-role"
-    username = "eks-admin"
-    groups   = ["system:masters"]
-  }
-]
+    {
+      rolearn  = "arn:aws:iam::733573665725:role/eks-admin-role"
+      username = "eks-admin"
+      groups   = ["system:masters"]
+    }
+  ]
  
   tags = {
     Environment = "dev"
