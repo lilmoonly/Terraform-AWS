@@ -12,10 +12,11 @@ output "private_subnet_id" {
 
 output "eks_admin_role_arn" {
   description = "ARN of the EKS admin IAM role (forwarded from module)."
-  value       = module.eks_admin.eks_admin_role_arn
+  value       = module.iam.eks_admin_role_arn
 }
 
 output "eks_admin_policy_arn" {
   description = "ARN of the EKS admin IAM policy (forwarded from module)."
-  value       = module.eks_admin.eks_admin_policy_arn
+  value       = module.iam.eks_admin_policy_arn
 }
+

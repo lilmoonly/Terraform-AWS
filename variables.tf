@@ -11,19 +11,12 @@ variable "project_name" {
 }
 
 variable "cluster_name" {
+  type = string
   default = "forgejo-eks"
 }
 
 variable "cluster_version" {
+  type = string
   default = "1.29"
 }
 
-variable "eks_managed_node_groups" {
-  description = "Map of EKS managed node group configurations"
-  type = map(object({
-    instance_types = list(string)
-    desired_size   = number
-    min_size       = number
-    max_size       = number
-  }))
-}
