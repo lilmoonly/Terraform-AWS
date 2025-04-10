@@ -1,18 +1,34 @@
 output "vpc_id" {
-  value = module.vpc.vpc_id
+  description = "ID of the VPC"
+  value       = module.vpc.vpc_id
 }
 
-output "public_subnets" {
-  value = module.vpc.public_subnet_ids
+output "public_subnet_ids" {
+  description = "List of public subnet IDs"
+  value       = module.vpc.public_subnet_ids
+}
+
+output "private_subnet_ids" {
+  description = "List of private subnet IDs"
+  value       = module.vpc.private_subnet_ids
+}
+
+output "internet_gateway_id" {
+  description = "ID of the Internet Gateway"
+  value       = module.vpc.internet_gateway_id
+}
+
+output "eks_cluster_endpoint" {
+  description = "EKS Cluster endpoint"
+  value       = module.eks.cluster_endpoint
+}
+
+output "eks_cluster_certificate_authority_data" {
+  description = "EKS Cluster CA data"
+  value       = module.eks.cluster_certificate_authority_data
 }
 
 output "eks_admin_role_arn" {
-  description = "ARN of the EKS admin IAM role (forwarded from module)."
+  description = "ARN of the EKS admin IAM role"
   value       = module.eks_admin.eks_admin_role_arn
 }
-
-output "eks_admin_policy_arn" {
-  description = "ARN of the EKS admin IAM policy (forwarded from module)."
-  value       = module.eks_admin.eks_admin_policy_arn
-}
-
