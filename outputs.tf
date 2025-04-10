@@ -3,7 +3,7 @@ output "vpc_id" {
 }
 
 output "public_subnets" {
-  value = module.vpc.public_subnets
+  value = module.vpc.public_subnet_ids
 }
 
 output "eks_admin_role_arn" {
