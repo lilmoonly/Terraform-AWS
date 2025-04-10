@@ -30,6 +30,11 @@ module "eks" {
 
   enable_irsa = true
 
+  
+  cluster_endpoint_public_access         = true
+  cluster_endpoint_private_access        = true
+  cluster_endpoint_public_access_cidrs     = ["92.253.212.9/32"]
+
   eks_managed_node_groups = {
     default = {
       min_size       = 1
@@ -48,4 +53,66 @@ module "eks" {
       groups   = ["system:masters"]
     }
   ]
+}
+
+resource "aws_security_group" "rds_sg" {
+  name        = "${var.project_name}-rds-sg"
+  description = "Security group for RDS PostgreSQL instance"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    description = "Allow PostgreSQL access"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = var.rds_allowed_cidrs
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = merge(
+    { Name = "${var.project_name}-rds-sg" },
+    var.common_tags
+  )
+}
+
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name       = "${var.project_name}-rds-subnet-group"
+  subnet_ids = module.vpc.private_subnet_ids
+
+  tags = merge(
+    { Name = "${var.project_name}-rds-subnet-group" },
+    var.common_tags
+  )
+}
+
+module "rds" {
+  source  = "terraform-aws-modules/rds/aws"
+  version = "~> 3.0" 
+
+  identifier              = "${var.project_name}-rds"
+  engine                  = "postgres"
+  engine_version          = var.db_engine_version
+  instance_class          = var.db_instance_class
+  allocated_storage       = var.allocated_storage
+  storage_type            = "gp2"
+  username                = var.db_master_username
+  password                = var.db_master_password
+  db_name                 = var.db_name
+  multi_az                = var.multi_az
+  publicly_accessible     = var.publicly_accessible
+  backup_retention_period = var.backup_retention_period
+  
+  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+
+  tags = merge(
+    { Name = "${var.project_name}-rds" },
+    var.common_tags
+  )
 }

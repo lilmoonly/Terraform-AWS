@@ -32,3 +32,13 @@ output "eks_admin_role_arn" {
   description = "ARN of the EKS admin IAM role"
   value       = module.eks_admin.eks_admin_role_arn
 }
+
+output "rds_endpoint" {
+  description = "Endpoint of the RDS PostgreSQL instance"
+  value       = module.rds.endpoint
+}
+
+output "rds_port" {
+  description = "Port for the RDS PostgreSQL instance"
+  value       = module.rds.port
+}

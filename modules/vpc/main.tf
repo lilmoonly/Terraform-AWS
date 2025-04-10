@@ -58,7 +58,7 @@ resource "aws_route_table_association" "public" {
 // Create Elastic IPs for NAT Gateways (one per private subnet)
 resource "aws_eip" "nat" {
   count = length(var.private_subnet_cidrs)
-  vpc   = true
+  domain = "vpc"
 
   tags = merge({
     Name = "${var.project_name}-nat-eip-${count.index + 1}"
