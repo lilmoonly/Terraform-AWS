@@ -93,25 +93,40 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
 
 module "rds" {
   source  = "terraform-aws-modules/rds/aws"
-  version = "~> 3.0" 
+  version = "~> 5.0" # Актуальна на момент написання
 
-  identifier              = "${var.project_name}-rds"
-  engine                  = "postgres"
-  engine_version          = var.db_engine_version
-  instance_class          = var.db_instance_class
-  allocated_storage       = var.allocated_storage
-  storage_type            = "gp2"
-  username                = var.db_master_username
-  password                = var.db_master_password
-  multi_az                = var.multi_az
-  publicly_accessible     = var.publicly_accessible
+  identifier = "${var.project_name}-rds"
+
+  engine            = "postgres"
+  engine_version    = var.db_engine_version
+  instance_class    = var.db_instance_class
+  allocated_storage = var.allocated_storage
+  storage_type      = "gp2"
+  port              = 5432
+
+  db_name  = var.db_name
+  username = var.db_master_username
+  password = var.db_master_password
+
+  multi_az            = var.multi_az
+  publicly_accessible = var.publicly_accessible
   backup_retention_period = var.backup_retention_period
-  
-  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
-  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+  deletion_protection = true
+
+  create_db_subnet_group = false
+  db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name
+
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+
+  # IAM Monitoring
+  monitoring_interval    = 30
+  create_monitoring_role = true
+  monitoring_role_name   = "${var.project_name}-rds-monitoring-role"
 
   tags = merge(
-    { Name = "${var.project_name}-rds" },
+    {
+      Name = "${var.project_name}-rds"
+    },
     var.common_tags
   )
 }

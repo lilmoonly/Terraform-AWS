@@ -58,7 +58,6 @@ variable "cluster_version" {
 variable "db_engine_version" {
   description = "PostgreSQL engine version"
   type        = string
-  default     = "13.4"
 }
 
 variable "db_instance_class" {
@@ -75,6 +74,11 @@ variable "allocated_storage" {
 
 variable "db_master_username" {
   description = "Master username for RDS"
+  type        = string
+}
+
+variable "db_name" {
+  description = "Name of the PostgreSQL database to create"
   type        = string
 }
 
