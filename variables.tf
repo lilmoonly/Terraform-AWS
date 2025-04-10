@@ -76,42 +76,30 @@ variable "allocated_storage" {
 variable "db_master_username" {
   description = "Master username for RDS"
   type        = string
-  default     = "forgejo"
 }
 
 variable "db_master_password" {
   description = "Master password for RDS"
   type        = string
   sensitive   = true
-  default     = "password" 
-}
-
-variable "db_name" {
-  description = "Initial database name"
-  type        = string
-  default     = "forgejodb"
 }
 
 variable "multi_az" {
   description = "Deploy RDS in Multi-AZ configuration"
   type        = bool
-  default     = false
 }
 
 variable "publicly_accessible" {
   description = "Should RDS be publicly accessible? (Not recommended for production)"
   type        = bool
-  default     = false
 }
 
 variable "backup_retention_period" {
   description = "Backup retention period (in days)"
   type        = number
-  default     = 7
 }
 
 variable "rds_allowed_cidrs" {
   description = "List of CIDR blocks allowed to access RDS (e.g., worker nodes range or office IP)"
   type        = list(string)
-  default     = ["10.0.0.0/16"]
 }

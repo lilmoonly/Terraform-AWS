@@ -103,7 +103,6 @@ module "rds" {
   storage_type            = "gp2"
   username                = var.db_master_username
   password                = var.db_master_password
-  db_name                 = var.db_name
   multi_az                = var.multi_az
   publicly_accessible     = var.publicly_accessible
   backup_retention_period = var.backup_retention_period

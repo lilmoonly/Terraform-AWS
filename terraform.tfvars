@@ -18,3 +18,14 @@ common_tags = {
 # EKS Cluster settings
 cluster_name    = "forgejo-eks"
 cluster_version = "1.29"
+
+# RDS variables:
+db_engine_version         = "13.4"
+db_instance_class         = "db.t3.micro"
+allocated_storage         = 20
+db_master_username        = "forgejo"
+db_master_password        = "password" 
+multi_az                  = false
+publicly_accessible       = false
+backup_retention_period   = 7
+rds_allowed_cidrs         = ["10.0.0.0/16"]
