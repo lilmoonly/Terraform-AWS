@@ -6,10 +6,6 @@ output "public_subnets" {
   value = module.vpc.public_subnets
 }
 
-output "private_subnets" {
-  value = module.vpc.private_subnets
-}
-
 output "eks_admin_role_arn" {
   description = "ARN of the EKS admin IAM role (forwarded from module)."
   value       = module.eks_admin.eks_admin_role_arn
