@@ -107,3 +107,7 @@ variable "rds_allowed_cidrs" {
   description = "List of CIDR blocks allowed to access RDS (e.g., worker nodes range or office IP)"
   type        = list(string)
 }
+variable "family" {
+  description = "Parameter group family for the RDS engine"
+  type        = string
+}

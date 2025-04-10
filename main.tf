@@ -104,6 +104,7 @@ module "rds" {
   storage_type      = "gp2"
   port              = 5432
 
+  family = var.family
   db_name  = var.db_name
   username = var.db_master_username
   password = var.db_master_password
